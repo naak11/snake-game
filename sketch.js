@@ -7,14 +7,13 @@
   function setup() {
     createCanvas(400, 400);
     snake1 = new snake();
-    snake1.show()
   }
 
   function draw() {
     background(0);
     
     //make the snake appear
-    snake1.show()
+    snake1.show();
     
     //check which key is pressed
     if (keyCode === 38 || keyCode === 87) {
