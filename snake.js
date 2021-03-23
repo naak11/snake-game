@@ -1,8 +1,8 @@
 class snake {
   //how it looks
   show() {
-    rect(x, y, 20)
-    fill(255, 255, 255);
+    fill(0, 255, 0);
+    rect(x, y, 20);
   }
 
   //action
@@ -33,5 +33,13 @@ class snake {
   reset() {
     x = 20;
     y = 200;
+  }
+}
+class apple {
+  //appear
+  show(){
+    fill(255,0,0);
+    rect(m,n,20);
+    
   }
 }
