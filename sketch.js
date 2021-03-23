@@ -2,7 +2,6 @@
   let x = 20;
   let speed = 5;
   let snake1;
-  let i = 20;
 
   function setup() {
     createCanvas(400, 400);
