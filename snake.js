@@ -42,4 +42,14 @@ class apple {
     rect(m,n,20);
     
   }
+  showd(lornh){
+    if(lornh == "new"){
+      this.show();
+    }else if(lornh == "old"){
+      m = random(40,360);
+      n = random(40,360);
+      this.show();
+      score++;
+    }
+  }
 }
