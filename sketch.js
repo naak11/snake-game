@@ -1,44 +1,107 @@
-  let snake1;  
-  let y = 200;
-  let x = 20;
-  let speed = 5;
-  let m;
-  let n;
-  let score = 0;
-  function setup() {
-    createCanvas(400, 400);
-    snake1 = new snake();
-    n = random(400);
-    m = random(400);
-    apple1 = new apple();
-  }
+let snake;
+let cls = 20;
+let apple;
+let Trackx = [];
+let Tracky = [];
+let something = 0;
+let score;
+let scored;
+let frames = Trackx.length;
+let gameSpeed = 10;
+function setup() {
+    createCanvas(Math.round((windowWidth - 20) / cls) * cls, Math.round((windowHeight - 90) / cls) * cls);
+    frameRate(gameSpeed);
+    snake = new Snake();
+    snake.construct();
+    apple = new Apple();
+    apple.construct();
+}
 
-  function draw() {
+function draw() {
+    for (let i = 1; i < score + 1; i++) {
+        let tyiu = Trackx.length - i;
+        if (snake.x === Trackx[tyiu] && snake.y === Tracky[tyiu]) {
+            snake.die()
+        }
+    }
     background(0);
+    apple.show();
+    snake.show();
 
-    //make an apple appear
-    apple1.show()
-    
-    //make the snake appear
-    snake1.show();
-    
-    //check which key is pressed
-    if (keyCode === 38 || keyCode === 87) {
-      snake1.moveUp()
-    } else if (keyCode === 40 || keyCode === 83) {
-      snake1.moveDown();
-    } else if (keyCode === 39 || keyCode === 68) {
-      snake1.moveRight();
-    } else if (keyCode === 37 || keyCode === 65) {
-      snake1.moveLeft();
-    } else if (keyCode === 82 || keyCode === 32) {
-      snake1.reset();
-    } else if (keyCode === 80 || keyCode === 13) {
-      snake1.stop();
+    Trackx.push(snake.x);
+    Tracky.push(snake.y);
+
+    snake.update();
+
+    if (apple.x === snake.x && apple.y === snake.y) {
+        snake.eat(apple);
+        console.log(score);
+    }
+
+    if (snake.x < 0 || snake.x >= width || snake.y < 0 || snake.y >= height) {
+        snake.die();
+    }
+    score = snake.total - 1;
+    scored = document.getElementById("Score");
+    scored.innerHTML = "Score: " + score;
+}
+
+function keyPressed() {
+    if (snake.xspeed === 0 && snake.yspeed === -1) {
+        if (keyCode == RIGHT_ARROW) {
+            snake.dir(0, 1)
+        } else if (keyCode == LEFT_ARROW) {
+            snake.dir(0, -1)
+        } else if (keyCode == 82) {
+            snake.reset()
+        } else {
+            return false
+        }
+    } else if (snake.xspeed === 0 && snake.yspeed === 1) {
+        if (keyCode == RIGHT_ARROW) {
+            snake.dir(0, 1)
+        } else if (keyCode == LEFT_ARROW) {
+            snake.dir(0, -1)
+        } else if (keyCode == 82) {
+            snake.reset()
+        } else if (keyCode == 82) {
+            snake.reset()
+        } else {
+            return false
+        }
+    } else if (snake.xspeed === 1 && snake.yspeed === 0) {
+        if (keyCode == UP_ARROW) {
+            snake.dir(-1, 0);
+        } else if (keyCode == DOWN_ARROW) {
+            snake.dir(1, 0)
+        } else if (keyCode == 82) {
+            snake.reset()
+        } else {
+            return false
+        }
+    } else if (snake.xspeed === -1 && snake.yspeed === 0) {
+        if (keyCode == UP_ARROW) {
+            snake.dir(-1, 0);
+        } else if (keyCode == DOWN_ARROW) {
+            snake.dir(1, 0)
+        } else if (keyCode == 82) {
+            snake.reset()
+        } else {
+            return false
+        }
     } else {
-      return false;
+        if (keyCode == UP_ARROW) {
+            snake.dir(-1, 0);
+        } else if (keyCode == DOWN_ARROW) {
+            snake.dir(1, 0)
+        } else if (keyCode == RIGHT_ARROW) {
+            snake.dir(0, 1)
+        } else if (keyCode == LEFT_ARROW) {
+            snake.dir(0, -1)
+        } else if (keyCode == 82) {
+            snake.reset()
+        } else {
+            return false
+        }
     }
-    if (x > m && y < n && x < m+20 && y > n-20 || x+20 > m && y-20 < n && x+20 < m+20 && y-20 > n-20) {
-      apple1.showd("old");
-    }
-  }
+}
