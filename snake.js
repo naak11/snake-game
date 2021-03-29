@@ -1,55 +1,68 @@
-class snake {
-  //how it looks
-  show() {
-    fill(0, 255, 0);
-    rect(x, y, 20);
-  }
-
-  //action
-  moveUp() {
-    y = y - speed;
-    x = x + 0
-  }
-  moveRight() {
-    x = x + speed;
-    y = y + 0;
-  }
-
-  moveLeft() {
-    x = x - speed;
-    y = y + 0;
-  }
-
-  moveDown() {
-    y = y + speed;
-    x = x + 0;
-  }
-
-  stop() {
-    x = x + 0;
-    y = y + 0;
-  }
-
-  reset() {
-    x = 20;
-    y = 200;
-  }
-}
-class apple {
-  //appear
-  show(){
-    fill(255,0,0);
-    rect(m,n,20);
-    
-  }
-  showd(lornh){
-    if(lornh == "new"){
-      this.show();
-    }else if(lornh == "old"){
-      m = random(40,360);
-      n = random(40,360);
-      this.show();
-      score++;
+class Snake {
+    construct() {
+        this.x = 40;
+        this.y = height / 2;
+        this.xspeed = 0;
+        this.yspeed = 0;
+        this.green = 255;
+        this.red = 0;
+        this.blue = 0;
+        this.total = 1;
     }
-  }
+    track() {
+        let ts = Trackx.length - 1;
+        console.log(Trackx[ts], Tracky[ts]);
+    }
+    update() {
+        for (let i = 0; i < this.total; i++) {
+            fill(this.red, this.green, this.blue)
+            let tss = i + 1;
+            let tk = Trackx.length - tss;
+            rect(Trackx[tk], Tracky[tk], cls);
+        }
+        this.x = this.x + this.xspeed * cls;
+        this.y = this.y + this.yspeed * cls;
+    }
+    dir(ty, tx) {
+        this.xspeed = tx;
+        this.yspeed = ty;
+    }
+    show() {
+        fill(this.red, this.green, this.blue)
+        rect(this.x, this.y, cls);
+    }
+    reset() {
+        this.x = 20;
+        this.y = height / 2;
+        this.xspeed = 0;
+        this.yspeed = 0;
+        this.total = 1;
+        apple.construct()
+    }
+    die() {
+        background(255, 0, 0);
+        fill(255);
+        textSize(100);
+        textAlign(CENTER);
+        text("Game Over", 0, 0, windowWidth, windowHeight);
+        this.x = 100000000000000;
+        this.y = 100000000000000;
+    }
+    eat(food) {
+        food.construct();
+        this.total = this.total + 1;
+    }
+}
+class Apple {
+    construct() {
+        this.x = int(random(0, width / cls)) * cls;
+        this.y = int(random(0, height / cls)) * cls;
+        this.red = 255;
+        this.green = 0;
+        this.blue = 0;
+    }
+    show() {
+        fill(this.red, this.green, this.blue);
+        rect(this.x, this.y, cls);
+    }
 }
